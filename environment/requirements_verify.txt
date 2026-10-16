@@ -1,0 +1,4 @@
+# Packages needed by code/audit/v074_verify and code/figures/v074_render (versions of the original environment)
+numpy==2.5.3
+matplotlib==3.11.2
+pillow==12.3.0

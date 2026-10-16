@@ -1,0 +1,28 @@
+"""Post-exit integrity and explicitly exploratory descriptive notes. No model imports."""
+from common import *
+import collections
+def records(name):
+    with (R/name).open(encoding='utf-8-sig') as f:return list(csv.DictReader(f))
+def main():
+    assert read('FINAL_STATUS.json')['status']=='completed_audited_stopped';registrations_ok();assert read('WORKSPACE_COMPARISON.json')['original_files_unchanged']
+    manifest=R/'SHA256SUMS.txt';entries=[line.split('  ',1) for line in manifest.read_text().splitlines()];wrong=[p for h,p in entries if not (R/p).is_file() or sha(R/p)!=h];assert not wrong,wrong
+    items=records('long_item_results.csv');nonfinite=[r for r in items if int(r['nonfinite_positions'])];fails=records('failure_cases.csv');models=records('model_comparison.csv');unit=records('retention_units.csv');timing=records('break_step_analysis.csv');pred=read('PREDICTIONS_A_FROZEN.json')['models'];categories=records('category_results.csv')
+    misses=[r for r in models if r['A_correct']=='False'];details={r['model']:[{k:q[k] for k in ('T','category','R_correct','R_count','sequence_correct','unique_or_item_count')} for q in categories if q['model']==r['model'] and int(q['T']) in (2048,8192,65000) and int(q['R_correct'])<int(q['R_count'])] for r in misses}
+    censor={}
+    for n in ('N','R'):
+        rr=[r for r in timing if r['neutral']==n];censor[n]=dict(items=len(rr),unobserved=sum(r['unobserved_at_65000']=='True' for r in rr),predicted_broken_unobserved=sum(r['A_holds']=='False' and r['unobserved_at_65000']=='True' for r in rr),unpredicted_failure=sum(r['unpredicted_failure']=='True' for r in rr),predicted_broken_without_finite_step=sum(r['predicted_failure_without_finite_step']=='True' for r in rr),nonmonotonic=sum(r['nonmonotonic']=='True' for r in rr))
+    eligible_N={(r['model'],r['value']) for r in timing if r['neutral']=='N' and r['N_interval_prediction_inside']!=''}
+    endpoint_units=[dict(model=p['model'],**u) for p in pred for u in p['units']]
+    summary=dict(exploratory_descriptive_only=True,reason='report numerical failure modes and limitations using already saved outputs; no new evaluation or training; no change to registered verdict',nonfinite_positions_all_symbols=sum(int(r['nonfinite_positions']) for r in nonfinite),items_with_nonfinite=len(nonfinite),models_with_nonfinite=len({r['model'] for r in nonfinite}),nonfinite_items_without_R_error=sum(r['sequence_exact']=='True' for r in nonfinite),first_error_nonfinite=sum(r['invalid']=='True' for r in fails),first_error_finite=sum(r['invalid']=='False' for r in fails),A_model_misses=[r['model'] for r in misses],A_miss_categories=details,retention_unit_misses=[r for r in unit if r['correct_main_lengths']=='False'],censoring_by_neutral=censor,N_interval_distinct_model_value_units=len(eligible_N),same_value_distances_flagged=sum(u['multiple_endpoints_at_1e_minus3'] for u in endpoint_units),same_value_distance_units_with_missing_values=sum(any(x is None for x in u['same_value_endpoint_distances']) for u in endpoint_units),script_SHA256=sha(__file__))
+    dump('NUMERICAL_FAILURE_SUMMARY.json',summary)
+    original=R/'REPORT_FF1.md';copy=R/'REPORT_FF1_PIPELINE.md';assert not copy.exists();copy.write_bytes(original.read_bytes())
+    lines=['','## 補足：数値的不安定性と比較の解釈（追加の探索的・記述的集計）','', '以下は保存済み出力を数え直した報告上の補足であり、新しいモデル実行・学習・評価はない。登録済み条件・予測・採点・主判定は変更していない。初回の自動生成報告はREPORT_FF1_PIPELINE.mdとして保全した。','', f"非有限logitを伴ったモデル{summary['models_with_nonfinite']}/40、項目{summary['items_with_nonfinite']}/19040。非有限出力位置は全入力記号を含め{summary['nonfinite_positions_all_symbols']}位置。主採点はRだけで、非有限Rは登録どおり誤答としている。該当項目のうちR誤答なしは{summary['nonfinite_items_without_R_error']}件。",f"失敗項目の初回失敗が非有限だったもの{summary['first_error_nonfinite']}、有限の誤答だったもの{summary['first_error_finite']}。後者にも後で非有限になる系列を含む。最初の誤答位置だけから内部原因は断定しない。今回の予測成績は、意味的な記憶保持と数値的不安定性を分離した因果検証ではない。",'', 'Aのモデル単位の外れ：'+', '.join(summary['A_model_misses'])+'。失敗カテゴリはNUMERICAL_FAILURE_SUMMARY.jsonへ保存。単純なN/R固定反復の診断から全カテゴリの成功を保証できるわけではない。','', f"N区間の8比較は異なるモデル×値の単位では{len(eligible_N)}単位であり、8個の独立モデルの再現ではない。Rの時点誤差中央値は予測/実測の有限な112組に限定される。打ち切りと時点未定義の内訳：{json.dumps(censor,ensure_ascii=False)}。",f"同じ値で前置き間距離>=1e-3を観測した単位{summary['same_value_distances_flagged']}/160、距離に欠損を含む単位{summary['same_value_distance_units_with_missing_values']}。非収束や非有限の端点について、フラグFalseを複数引き込み点の不存在証明とは扱わない。",'', 'Aは20,000回の反復とヤコビアン計算を利用し、Bは短い系列の正答率を利用する。計算予算は同一ではなく、的中数の比較から計算効率の優位を主張しない。L16はL8の2倍の入力位置を学習するため、Lの違いを他の要因から分離した因果効果とも扱わない。主判定の「支持」は登録された件数基準によるもので、統計的有意性検定や他課題への一般性を追加で実証した意味ではない。','', '補足記述後もD11・追加条件・LSTM比較・追加学習を行わず停止。']
+    original.write_text(original.read_text(encoding='utf-8')+'\n'.join(lines)+'\n',encoding='utf-8')
+    for n in ('A','B'):assert sha(R/f'PREDICTIONS_{n}_FROZEN.json')==read(f'PREDICTIONS_{n}_SHA256.json')['SHA256']
+    for a in read('CHECKPOINTS_FROZEN.json')['models'].values():assert sha(R/a['path'])==a['SHA256']
+    dump('FINAL_POSTEXIT_AUDIT.json',dict(passed=True,utc=now(),incoming_manifest_entries_verified=len(entries),registered_source_unchanged=True,selected_checkpoints_verified=40,predictions_A_B_unchanged=True,report_explanatory_append_only=True,registered_verdict_unchanged=read('metrics.json')['verdict'],no_new_model_execution=True,old_workspace_preservation=read('WORKSPACE_COMPARISON.json')['original_files_unchanged']))
+    paths=[p for p in sorted(R.rglob('*')) if p.is_file() and p!=manifest];manifest.write_text(''.join(f'{sha(p)}  {p.relative_to(R).as_posix()}\n' for p in paths),encoding='utf-8')
+    for line in manifest.read_text().splitlines():
+        h,p=line.split('  ',1);assert sha(R/p)==h,p
+    print('POSTEXIT VERIFIED',len(paths),json.dumps(summary,ensure_ascii=False),flush=True)
+if __name__=='__main__':main()
