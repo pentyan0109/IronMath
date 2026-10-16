@@ -11,7 +11,7 @@ Archive accompanying "How Small Recurrent Networks Fail at Length Generalization
 | `IronMath_archive_v074_part3_evaluation_sets.tar.gz` | `evaluation_sets/` |
 | `IronMath_archive_v074_part4_checkpoints.tar.gz` | `checkpoints/` (the 324 primary checkpoints) |
 
-Extract all four into the same directory (`tar -xzf <part>` for each); they unpack into `archive_v074/`. `SHA256SUMS.txt` in the release lists the hashes of the parts, and `MANIFEST_SHA256.txt` those of every extracted file (`sha256sum -c MANIFEST_SHA256.txt` inside `archive_v074/`). The license is not yet decided (see "License").
+Extract all four into the same directory (`tar -xzf <part>` for each); they unpack into `archive_v074/`. `SHA256SUMS.txt` in the release lists the hashes of the parts, and `MANIFEST_SHA256.txt` those of every extracted file (`sha256sum -c MANIFEST_SHA256.txt` inside `archive_v074/`). The contents are released under the MIT License (see "License" and `LICENSE`).
 
 ## Layout
 
@@ -76,9 +76,11 @@ The archive contains no credentials and no personal information other than the a
 
 Experiments were planned by GPT (OpenAI) as research lead, implemented and run by Claude Code (Anthropic) and Codex (OpenAI) from written instructions, and reviewed by Claude (Anthropic); preregistration documents were approved by the author before being frozen. The archive was assembled by Claude Code. See the paper's acknowledgments.
 
-## License (proposal, not decided)
+## License
 
-Code: MIT. Data, records and documentation: CC BY 4.0 (matching the paper's license line). Third-party files kept for exact re-builds (`jmlr2e.sty`, `natbib.sty`, `booktabs.sty`, `plainnat.bst`) remain under their own licenses.
+All contents of this repository and of the paper-v0.7.4 release (code, data, checkpoints and documents) are released under the MIT License; see LICENSE.
+
+Third-party files kept in the release for exact re-builds (`jmlr2e.sty`, `natbib.sty`, `booktabs.sty`, `plainnat.bst`) remain under their own licenses.
 
 ## Contact
 
