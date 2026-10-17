@@ -1,6 +1,6 @@
 # IronMath reproducibility archive (paper v0.7.4)
 
-Archive accompanying "How Small Recurrent Networks Fail at Length Generalization: Shared Endpoints, Transient Memory, and Diagnostic Ablations" (T. Ikegami, manuscript v0.7.4). Local, unpublished version prepared 2026-10-17. It lets a reader trace each table, figure and headline number of the paper to the saved records it came from, and re-run the main re-aggregations without training or running any model.
+Archive accompanying "How Small Recurrent Networks Fail at Length Generalization: Shared Endpoints, Transient Memory, and Diagnostic Ablations" (T. Ikegami, manuscript v0.7.4). Published on 2026-10-17 (JST) as the GitHub release [`paper-v0.7.4`](https://github.com/pentyan0109/IronMath/releases/tag/paper-v0.7.4). It lets a reader trace each table, figure and headline number of the paper to the saved records it came from, and re-run the main re-aggregations without training or running any model.
 
 **Published** at https://github.com/pentyan0109/IronMath. The repository holds the documentation, maps, code and environment files; the complete archive (about 1.98 GB) is attached to the release [`paper-v0.7.4`](https://github.com/pentyan0109/IronMath/releases/tag/paper-v0.7.4) as four `.tar.gz` parts:
 
@@ -78,9 +78,7 @@ Experiments were planned by GPT (OpenAI) as research lead, implemented and run b
 
 ## License
 
-All contents of this repository and of the paper-v0.7.4 release (code, data, checkpoints and documents) are released under the MIT License; see LICENSE.
-
-Third-party files kept in the release for exact re-builds (`jmlr2e.sty`, `natbib.sty`, `booktabs.sty`, `plainnat.bst`) remain under their own licenses.
+This archive (code, data, checkpoints and documents) is released under the MIT License; see LICENSE. Third-party files keep their own licenses.
 
 ## Contact
 
