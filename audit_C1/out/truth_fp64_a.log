@@ -1,0 +1,12 @@
+truth fp64 C1_B0_s0 91.2 s
+truth fp64 C1_B0_s1 78.1 s
+truth fp64 C1_B0_s2 78.9 s
+truth fp64 i100_c0 90.9 s
+truth fp64 i100_c1 88.4 s
+truth fp64 i101_c0 78.9 s
+truth fp64 i101_c1 88.2 s
+truth fp64 i102_c0 87.2 s
+truth fp64 i102_c1 87.8 s
+truth fp64 i103_c0 85.7 s
+truth fp64 i103_c1 87.1 s
+truth fp64 i104_c0 76.4 s

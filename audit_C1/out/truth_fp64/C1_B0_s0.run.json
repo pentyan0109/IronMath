@@ -1,0 +1,9 @@
+{
+ "model": "C1_B0_s0",
+ "steps": 2048,
+ "precision": "fp64",
+ "seconds": 91.15698862075806,
+ "param_hash": "935a91cc63b8d98a49ece31df0c335ba8acc7d0bbb8843c517d388d55339d2db",
+ "peak_rss_MB": 516.484375,
+ "torch": "2.14.1+cpu"
+}

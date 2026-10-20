@@ -1,0 +1,9 @@
+{
+ "model": "i103_c0",
+ "steps": 2048,
+ "precision": "fp64",
+ "seconds": 85.70276188850403,
+ "param_hash": "a6ab023f472a2b581dff926cab73d1649a673de2ea39dbdff1c2eb596f737e6b",
+ "peak_rss_MB": 520.31640625,
+ "torch": "2.14.1+cpu"
+}

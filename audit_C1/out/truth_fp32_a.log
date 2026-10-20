@@ -1,0 +1,12 @@
+truth fp32 C1_B0_s0 31.6 s
+truth fp32 C1_B0_s1 33.1 s
+truth fp32 C1_B0_s2 31.3 s
+truth fp32 i100_c0 31.1 s
+truth fp32 i100_c1 30.8 s
+truth fp32 i101_c0 31.4 s
+truth fp32 i101_c1 31.6 s
+truth fp32 i102_c0 31.2 s
+truth fp32 i102_c1 30.7 s
+truth fp32 i103_c0 30.5 s
+truth fp32 i103_c1 30.7 s
+truth fp32 i104_c0 30.8 s

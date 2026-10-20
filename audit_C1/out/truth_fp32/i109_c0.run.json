@@ -1,0 +1,9 @@
+{
+ "model": "i109_c0",
+ "steps": 2048,
+ "precision": "fp32",
+ "seconds": 31.357479095458984,
+ "param_hash": "0e222c32eb72d4a40131947f6078040ed6ff8c1493748cb54fb016e8f96e0605",
+ "peak_rss_MB": 519.3125,
+ "torch": "2.14.1+cpu"
+}
