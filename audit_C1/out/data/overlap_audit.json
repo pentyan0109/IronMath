@@ -1,0 +1,26 @@
+{
+ "exact_matches": 0,
+ "v054h_k64_substring_hits": {
+  "ADD0": {
+   "v054h_two_sided_only_holds": 3,
+   "patterns_containing_any": 0
+  },
+  "ADD1": {
+   "v054h_two_sided_only_holds": 5,
+   "patterns_containing_any": 0
+  },
+  "SUB0": {
+   "v054h_two_sided_only_holds": 3,
+   "patterns_containing_any": 0
+  },
+  "SUB1": {
+   "v054h_two_sided_only_holds": 3,
+   "patterns_containing_any": 0
+  }
+ },
+ "notes": [
+  "V054H hold_pairs stored only for k<=64; our holds have length 2048, so exact matches cannot occur by length."
+ ],
+ "v054t_note": "V054T probes hold a single pair (constant pattern); none of our patterns is constant: True",
+ "period2_alternation_present": false
+}
