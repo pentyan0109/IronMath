@@ -1,0 +1,9 @@
+{
+ "model": "i106_c0",
+ "steps": 256,
+ "precision": "fp64",
+ "seconds": 11.090092420578003,
+ "param_hash": "7516b88aee4cd7121da075b2c4414d5df2f3ac2361da842be644b93ef7feeae5",
+ "peak_rss_MB": 417.58203125,
+ "torch": "2.14.1+cpu"
+}
